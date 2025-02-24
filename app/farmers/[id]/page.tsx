@@ -53,7 +53,7 @@ export default function FarmerDetails() {
   useEffect(() => {
     const fetchFarmerDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/farmers/${params.id}`);
+        const response = await fetch(`https://freshxpress-backend.onrender.com/api/farmers/${params.id}`);
         const data = await response.json();
         setFarmer(data);
       } catch (error) {
@@ -71,7 +71,7 @@ export default function FarmerDetails() {
     
     setIsUpdating(true);
     try {
-      const response = await fetch(`http://localhost:5000/api/farmers/${params.id}`, {
+      const response = await fetch(`https://freshxpress-backend.onrender.com/api/farmers/${params.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

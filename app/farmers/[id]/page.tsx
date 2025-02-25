@@ -1,9 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-// import L from 'leaflet';
 
 interface FarmerDetails {
   id: string;
@@ -49,7 +48,9 @@ export default function FarmerDetails() {
   const [isLoading, setIsLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [map, setMap] = useState<L.Map | null>(null);
 
+  console.log(map);
   useEffect(() => {
     const fetchFarmerDetails = async () => {
       try {
@@ -65,6 +66,26 @@ export default function FarmerDetails() {
 
     fetchFarmerDetails();
   }, [params.id]);
+
+  useEffect(() => {
+    if (farmer?.latitude && farmer?.longitude) {
+      const mapInstance = L.map("map").setView([farmer.latitude, farmer.longitude], 13);
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(mapInstance);
+
+      // Add marker at farmer's location
+      L.marker([farmer.latitude, farmer.longitude]).addTo(mapInstance);
+
+      setMap(mapInstance);
+
+      // Cleanup on unmount
+      return () => {
+        mapInstance.remove();
+      };
+    }
+  }, [farmer]);
 
   const updateVerificationStatus = async () => {
     if (!farmer) return;
@@ -199,18 +220,7 @@ export default function FarmerDetails() {
             </div>
 
             {farmer.latitude && farmer.longitude && (
-              <div className="h-64 w-full mt-4">
-                <MapContainer 
-                  center={[farmer.latitude, farmer.longitude]} 
-                  zoom={13} 
-                  style={{ height: '100%', width: '100%' }}
-                >
-                  <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  />
-                  <Marker position={[farmer.latitude, farmer.longitude]} />
-                </MapContainer>
-              </div>
+              <div id="map" className="h-64 w-full mt-4" />
             )}
           </div>
         </div>

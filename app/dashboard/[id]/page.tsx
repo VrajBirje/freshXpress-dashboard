@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+// import { useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -43,8 +44,10 @@ interface FarmerDetails {
 }
 
 export default function FarmerDetails() {
-  const searchParams = useSearchParams();
-  const farmerId = searchParams.get('id');
+  // const searchParams = useSearchParams();
+  // const farmerId = searchParams.get('id');
+  const params = useParams();
+  const farmerId = params?.id as string;
   const [farmer, setFarmer] = useState<FarmerDetails | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);

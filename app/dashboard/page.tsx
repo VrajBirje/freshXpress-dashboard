@@ -51,7 +51,8 @@ export default function Dashboard() {
   const totalPages = Math.ceil(farmers.length / itemsPerPage);
 
   const handleRowClick = (farmerId: string) => {
-    router.push(`/farmers?id=${farmerId}`);
+    // router.push(`/dashboard/id=${farmerId}`);
+    router.push(`/dashboard/${farmerId}`);
   };
 
   return (

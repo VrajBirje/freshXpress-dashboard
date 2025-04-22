@@ -1,0 +1,37 @@
+export interface FarmerDetails {
+    id: string;
+    full_name: string;
+    contact_number: number;
+    email: string;
+    aadhaar: string;
+    total_land_area: string;
+    crops_grown: string[];
+    farming_type: string;
+    irrigation_method: string;
+    fertilizer_usage: string;
+    harvest_seasons: string;
+    average_yield: string;
+    previous_buyers: string;
+    village: string;
+    taluk: string;
+    district: string;
+    state: string;
+    pin_code: string;
+    geo_location: string;
+    nearest_market: string;
+    delivery_mode: string;
+    storage_facilities: string;
+    distance_to_road: string;
+    transport_availability: string;
+    payment_method: string;
+    bank_account: string;
+    bank_name: string;
+    ifsc_code: string;
+    upi_id: string;
+    land_ownership_proof: string;
+    long_term_partnership: string;
+    additional_remarks: string;
+    latitude: number;
+    longitude: number;
+    is_verify: boolean;
+  }

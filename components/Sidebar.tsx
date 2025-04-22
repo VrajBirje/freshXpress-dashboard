@@ -1,13 +1,16 @@
 'use client';
 import Link from 'next/link';
 import { useAuth } from './AuthContext';
+import Image from 'next/image';
 
 export default function Sidebar() {
   const { logout } = useAuth();
 
   return (
     <div className="w-64 bg-[#00843D] text-white p-6">
-      <h2 className="text-2xl font-bold mb-6">FreshXpress</h2>
+      <div className="flex items-center justify-center mb-10">
+        <Image src="/Press2.png" alt='Logo' width={170} height={20}></Image>
+      </div>
       <nav className="space-y-2">
         <Link 
           href="/dashboard" 
